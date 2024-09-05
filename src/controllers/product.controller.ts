@@ -3,34 +3,49 @@ import {Context} from 'koa';
 import Product from "../models/product.model";
 import {ResponseEntity} from "../utils/entities/response.entity";
 import {
-    CreateProductDtoType,
-    UpdateProductDtoType
+    ProductQuerySchema,
+    CreateProductBodySchemaType,
+    UpdateProductBodySchemaType
 } from "../schemas/product.schema";
 import {ProductMapper} from "../mappers/product.mapper";
 import {productResponseMessage} from "../singleton/product.singleton";
+import {parseSortString} from "../utils/sort-parser";
 
 
 const findManyProducts = async (ctx: Context) => {
-    const {search, sort, category} = ctx.query;
+    const rawQuery = ctx.query;
 
-    const query: any = {};
+    const parseResult = await ProductQuerySchema.safeParseAsync(rawQuery);
 
-    if (search) {
-        query.$or = [{name: {$regex: search, $options: 'i'}}, {description: {$regex: search, $options: 'i'}}];
+    if (!parseResult.success) {
+        ctx.status = 400;
+        ctx.body = ResponseEntity.error(parseResult.error.errors);
+        return;
     }
 
-    if (category) {
-        query.category = category;
+    const parsedQuery = parseResult.data;
+
+    const mongooseQuery: any = {};
+
+    if (parsedQuery.search) {
+        mongooseQuery.$text = {$search: parsedQuery.search};
     }
 
-    let sortOption: any = {};
-    if (sort === 'price_asc') {
-        sortOption.price = 1;
-    } else if (sort === 'price_desc') {
-        sortOption.price = -1;
+    if (parsedQuery.categories) {
+        mongooseQuery.categories = { $in: [...parsedQuery.categories] };
+    }
+
+    const mongooseSort: any = {};
+
+    if (parsedQuery.sort) {
+        if (parsedQuery.sort.price) mongooseSort.price = parseSortString(parsedQuery.sort.price);
+        if (parsedQuery.sort.status) mongooseSort.status = parseSortString(parsedQuery.sort.status);
+        if (parsedQuery.sort.createdAt) mongooseSort.createdAt = parseSortString(parsedQuery.sort.createdAt);
+        if (parsedQuery.sort.updatedAt) mongooseSort.updatedAt = parseSortString(parsedQuery.sort.updatedAt);
     }
     try {
-        const products = await Product.find(query).sort(sortOption);
+        console.log(mongooseQuery, mongooseSort)
+        const products = await Product.find(mongooseQuery).sort(mongooseSort);
         ctx.body = ResponseEntity.ok(productResponseMessage.findManyMessage(), products);
     } catch (e) {
         ctx.status = 500;
@@ -40,7 +55,7 @@ const findManyProducts = async (ctx: Context) => {
 
 const createOneProduct = async (ctx: Context) => {
     try {
-        const productModel = ProductMapper.createDtoToModel(ctx.request.body as CreateProductDtoType);
+        const productModel = ProductMapper.createDtoToModel(ctx.request.body as CreateProductBodySchemaType);
         const createdProduct = await Product.create(productModel);
         ctx.body = ResponseEntity.ok(productResponseMessage.createMessage(), ProductMapper.modelToDto(createdProduct));
     } catch (e) {
@@ -69,7 +84,7 @@ const findOneProduct = async (ctx: Context) => {
 
 const updateOneProduct = async (ctx: Context) => {
     try {
-        const updatingProductModel = ProductMapper.updateDtoToModel(ctx.request.body as UpdateProductDtoType);
+        const updatingProductModel = ProductMapper.updateDtoToModel(ctx.request.body as UpdateProductBodySchemaType);
         await Product.updateOne({_id: ctx.params.productId}, updatingProductModel);
         ctx.body = ResponseEntity.ok(productResponseMessage.updateMessage());
     } catch (e) {

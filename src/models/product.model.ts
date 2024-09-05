@@ -33,7 +33,11 @@ const productSchema = new Schema({
     brand: String,
     colors: [String],
     dynamicAttributes: Schema.Types.Mixed,
+}, {
+    timestamps: true,
 });
+
+productSchema.index({ title: 'text', brand: 'text', description: 'text' }, { weights: { title: 5, brand: 2, description: 1 } });
 
 const Product = mongoose.model<IProduct>('Product', productSchema);
 

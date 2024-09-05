@@ -2,7 +2,7 @@ import { Context, Next } from 'koa';
 
 import Product from "../models/product.model";
 import {productResponseMessage} from "../singleton/product.singleton";
-import {CreateProductDto, UpdateProductDto} from "../schemas/product.schema";
+import {CreateProductBodySchema, UpdateProductBodySchema} from "../schemas/product.schema";
 import {ResponseEntity} from "../utils/entities/response.entity";
 import {Types} from "mongoose";
 
@@ -28,7 +28,7 @@ const existProduct = async (ctx: Context, next: Next) => {
 }
 
 const preCreateProduct = async (ctx: Context, next: Next) => {
-    const parseResult = await CreateProductDto.safeParseAsync(ctx.request.body);
+    const parseResult = await CreateProductBodySchema.safeParseAsync(ctx.request.body);
     if (!parseResult.success) {
         ctx.status = 400;
         ctx.body = ResponseEntity.error(parseResult.error.issues);
@@ -38,7 +38,7 @@ const preCreateProduct = async (ctx: Context, next: Next) => {
 };
 
 const preUpdateProduct = async (ctx: Context, next: Next) => {
-    const parseResult = await UpdateProductDto.safeParseAsync(ctx.request.body);
+    const parseResult = await UpdateProductBodySchema.safeParseAsync(ctx.request.body);
     if (!parseResult.success) {
         ctx.status = 400;
         ctx.body = ResponseEntity.error(parseResult.error.issues);

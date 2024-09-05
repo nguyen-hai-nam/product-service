@@ -1,8 +1,8 @@
 import {IProduct} from "../models/product.model";
-import {CreateProductDtoType, ProductDtoType, UpdateProductDtoType} from "../schemas/product.schema";
+import {CreateProductBodySchemaType, ProductSchemaType, UpdateProductBodySchemaType} from "../schemas/product.schema";
 
 export class ProductMapper {
-    static createDtoToModel(data: CreateProductDtoType): IProduct {
+    static createDtoToModel(data: CreateProductBodySchemaType): IProduct {
         return {
             title: data.title,
             description: data.description,
@@ -21,7 +21,7 @@ export class ProductMapper {
         }
     }
 
-    static updateDtoToModel(data: UpdateProductDtoType): Partial<IProduct> {
+    static updateDtoToModel(data: UpdateProductBodySchemaType): Partial<IProduct> {
         return {
             title: data.title,
             description: data.description,
@@ -40,7 +40,7 @@ export class ProductMapper {
         }
     }
 
-    static modelToDto(data: IProduct): ProductDtoType {
+    static modelToDto(data: IProduct): ProductSchemaType {
         return {
             id: data._id,
             title: data.title,
