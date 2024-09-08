@@ -60,11 +60,11 @@ __metadata:
   linkType: hard
 
 "@mongodb-js/saslprep@npm:^1.1.5":
-  version: 1.1.8
-  resolution: "@mongodb-js/saslprep@npm:1.1.8"
+  version: 1.1.9
+  resolution: "@mongodb-js/saslprep@npm:1.1.9"
   dependencies:
     sparse-bitfield: "npm:^3.0.3"
-  checksum: 10c0/f7672a0843d104ec5825791d90bff77ee8e6e31f273a9863ee4050c53b634c84533ffc415ac4a7e72929119d4acb661d7c7bf6cadc0bcc787a9aee15287a1086
+  checksum: 10c0/2f391db96db7a69e6849cc906e4a0bcd14127ad0493f97fc4134790fa2f0d4af5abcd110382c9d97a996ca31766e0c358c2e08d154f6ddfa06144e2c8a036895
   languageName: node
   linkType: hard
 
@@ -284,11 +284,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^22.5.1":
-  version: 22.5.2
-  resolution: "@types/node@npm:22.5.2"
+  version: 22.5.4
+  resolution: "@types/node@npm:22.5.4"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/624a7fd76229eacc6c158eb3b9afd55b811d7f01976c5f92c630d5b9d47047cc218928c343988484a165ac400e5eb6fe70ea300fc7242deeb0e920c7724290f6
+  checksum: 10c0/b445daa7eecd761ad4d778b882d6ff7bcc3b4baad2086ea9804db7c5d4a4ab0298b00d7f5315fc640a73b5a1d52bbf9628e09c9fec0cf44dbf9b4df674a8717d
   languageName: node
   linkType: hard
 
@@ -707,14 +707,14 @@ __metadata:
   linkType: hard
 
 "debug@npm:4, debug@npm:4.x, debug@npm:^4, debug@npm:^4.3.2, debug@npm:^4.3.4":
-  version: 4.3.6
-  resolution: "debug@npm:4.3.6"
+  version: 4.3.7
+  resolution: "debug@npm:4.3.7"
   dependencies:
-    ms: "npm:2.1.2"
+    ms: "npm:^2.1.3"
   peerDependenciesMeta:
     supports-color:
       optional: true
-  checksum: 10c0/3293416bff072389c101697d4611c402a6bacd1900ac20c0492f61a9cdd6b3b29750fc7f5e299f8058469ef60ff8fb79b86395a30374fbd2490113c1c7112285
+  checksum: 10c0/1471db19c3b06d485a622d62f65947a19a23fbd0dd73f7fd3eafb697eec5360cde447fb075919987899b1a2096e85d35d4eb5a4de09a57600ac9cf7e6c8e768b
   languageName: node
   linkType: hard
 
@@ -1601,8 +1601,8 @@ __metadata:
   linkType: hard
 
 "mongoose@npm:^8.6.0":
-  version: 8.6.0
-  resolution: "mongoose@npm:8.6.0"
+  version: 8.6.1
+  resolution: "mongoose@npm:8.6.1"
   dependencies:
     bson: "npm:^6.7.0"
     kareem: "npm:2.6.3"
@@ -1611,7 +1611,7 @@ __metadata:
     mquery: "npm:5.0.0"
     ms: "npm:2.1.3"
     sift: "npm:17.1.3"
-  checksum: 10c0/3c89af7d10d20f9d0e28b9eadbc4d4cb78173a51f4382609e46d41d972d24083f7e3483610cf9d6aa4d73698f6afc349cc9ac265edc93d5ff9af23ea457acd4c
+  checksum: 10c0/9fa2bc802977e306dff96430e4a87ac167a00ed08fb6b096dc2d24eca09720f46dfc644105c33a0b4c1bf5d74a83813f6035c351cbcfc3b39e89ef2613932da9
   languageName: node
   linkType: hard
 
@@ -1631,14 +1631,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ms@npm:2.1.2":
-  version: 2.1.2
-  resolution: "ms@npm:2.1.2"
-  checksum: 10c0/a437714e2f90dbf881b5191d35a6db792efbca5badf112f87b9e1c712aace4b4b9b742dd6537f3edf90fd6f684de897cec230abde57e87883766712ddda297cc
-  languageName: node
-  linkType: hard
-
-"ms@npm:2.1.3":
+"ms@npm:2.1.3, ms@npm:^2.1.3":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
   checksum: 10c0/d924b57e7312b3b63ad21fc5b3dc0af5e78d61a1fc7cfb5457edaf26326bf62be5307cc87ffb6862ef1c2b33b0233cdb5d4f01c4c958cc0d660948b65a287a48
